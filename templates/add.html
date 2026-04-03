@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Record | DataSaarthi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    
+    /* Gradient Background */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00f2fe 100%);
+    
+    /* Smooth gradient animation */
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+
+}
+
+/* Gradient Animation */
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+/* Navbar */
+.navbar {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.logo span {
+    color: #00f2fe;
+}
+
+.logout {
+    color: white;
+    text-decoration: none;
+    border: 1px solid white;
+    padding: 8px 18px;
+    border-radius: 20px;
+}
+
+/* Form Card */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: rgba(255,255,255,0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    color: white;
+}
+
+/* Title */
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Inputs */
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 14px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 5px;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 50px;
+    background: #00f2fe;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: #ccc;
+    margin-top: 20px;
+}
+.header-line {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #00f2fe, #764ba2);
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">Data<span>Saarthi</span></div>
+    <a href="#" class="logout">Logout</a>
+</div>
+<div class="header-line"></div>
+
+<!-- FORM -->
+<div class="container">
+
+    <h2>Fill New Record</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="input-group">
+            <label>ID</label>
+            <input type="text" name="id">
+        </div>
+
+        <div class="input-group">
+            <label>House No.</label>
+            <input type="text" name="house_no">
+        </div>
+
+        <div class="input-group">
+            <label>Address</label>
+            <input type="text" name="address">
+        </div>
+
+        <div class="input-group">
+            <label>Village</label>
+            <input type="text" name="village">
+        </div>
+
+        <div class="input-group">
+            <label>Client Name</label>
+            <input type="text" name="client_name">
+        </div>
+
+        <!-- TYPE -->
+        <div class="input-group">
+            <label>Type</label>
+            <select id="type" name="type" onchange="handleType()">
+                <option value="">Select</option>
+                <option>PVR01</option>
+                <option>PVR02</option>
+                <option>PVR03</option>
+                <option>PVR04</option>
+            </select>
+        </div>
+
+        <!-- PVR03 SUB TYPE -->
+        <div class="input-group" id="subTypeDiv" style="display:none;">
+            <label>Property Type</label>
+            <select name="property_type">
+                <option>Flat</option>
+                <option>House</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>LIC Agent Name</label>
+            <input type="text" name="agent_name">
+        </div>
+
+        <div class="input-group">
+            <label>Estimate Status</label>
+            <select name="estimate_status">
+                <option>Paid</option>
+                <option>Pending</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Client Mobile No.</label>
+            <input type="text" name="mobile">
+        </div>
+
+        <div class="input-group">
+            <label>File Status</label>
+            <select name="file_status">
+                <option>Submitted</option>
+                <option>Not Submitted</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Date</label>
+            <input type="date" name="date">
+        </div>
+
+        <button class="btn">Submit</button>
+
+    </form>
+
+</div>
+
+<div class="footer">
+    © DataSaarthi | Smart System
+</div>
+
+<!-- JS FOR DYNAMIC DROPDOWN -->
+<script>
+
+function handleType() {
+    var type = document.getElementById("type").value;
+    var subDiv = document.getElementById("subTypeDiv");
+
+    if(type === "PVR03") {
+        subDiv.style.display = "block";
+    } else {
+        subDiv.style.display = "none";
+    }
+}
+
+</script>
+
+</body>
+</html>

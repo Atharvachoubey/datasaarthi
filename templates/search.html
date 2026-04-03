@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Search | DataSaarthi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* BODY SAME */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* NAVBAR SAME */
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.logo span {
+    color: #00f2fe;
+}
+
+.tagline {
+    font-size: 12px;
+    color: #ddd;
+}
+
+.logout {
+    color: white;
+    text-decoration: none;
+    border: 1px solid white;
+    padding: 8px 18px;
+    border-radius: 20px;
+}
+
+.logout:hover {
+    background: white;
+    color: #333;
+}
+
+/* LINE */
+.header-line {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+}
+
+/* CONTAINER */
+.container {
+    margin-top: 120px;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+/* GRID FORM */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+/* INPUT */
+input, select {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+/* BUTTON SAME STYLE */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    margin-top: 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-search {
+    background: white;
+    color: #333;
+}
+
+.btn-search:hover {
+    background: #ddd;
+    transform: scale(1.05);
+}
+
+/* TABLE */
+.table-box {
+    margin-top: 30px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: rgba(255,255,255,0.2);
+}
+
+/* EDIT BUTTON */
+.edit-btn {
+    background: #00f2fe;
+    color: black;
+    padding: 6px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+.edit-btn:hover {
+    background: #4facfe;
+}
+
+/* FOOTER */
+.footer {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: #ccc;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">
+        Data<span>Saarthi</span>
+        <div class="tagline">Smart Record Management</div>
+    </div>
+
+    <a href="#"class="logout">Back</a>
+
+
+    <a href="#" class="logout">Logout</a>
+</div>
+
+<div class="header-line"></div>
+
+<!-- CONTENT -->
+<div class="container">
+
+    <!-- SEARCH FORM -->
+    <div class="card">
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="grid">
+                <input type="text" name="custom_id" placeholder="Search by ID">
+                <input type="text" name="client_name" placeholder="Client Name">
+                <input type="text" name="lic_agent_name" placeholder="LIC Agent">
+
+                <select name="type">
+                    <option value="">Type</option>
+                    <option value="PVR01">PVR01</option>
+                    <option value="PVR02">PVR02</option>
+                    <option value="PVR03">PVR03</option>
+                    <option value="PVR04">PVR04</option>
+                </select>
+
+                <select name="estimate_status">
+                    <option value="">Estimate Status</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Pending">Pending</option>
+                </select>
+
+                <select name="file_status">
+                    <option value="">File Status</option>
+                    <option value="Submitted">Submitted</option>
+                    <option value="Not Submitted">Not Submitted</option>
+                </select>
+            </div>
+
+            <button class="btn btn-search">🔍 Search</button>
+
+        </form>
+    </div>
+
+   {% if reports %}
+<div class="table-box">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>House No</th>
+            <th>Address</th>
+            <th>Village</th>
+            <th>Client Name</th>
+            <th>Type</th>
+            <th>Sub Type</th>
+            <th>LIC Agent</th>
+            <th>Estimate</th>
+            <th>Mobile</th>
+            <th>File Status</th>
+            <th>Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+
+        {% for r in reports %}
+        <tr>
+            <td>{{ r.custom_id }}</td>
+            <td>{{ r.house_no }}</td>
+            <td>{{ r.address }}</td>
+            <td>{{ r.village }}</td>
+            <td>{{ r.client_name }}</td>
+            <td>{{ r.type }}</td>
+            <td>{{ r.sub_type }}</td>
+            <td>{{ r.lic_agent_name }}</td>
+            <td>{{ r.estimate_status }}</td>
+            <td>{{ r.client_mobile }}</td>
+            <td>{{ r.file_status }}</td>
+            <td>{{ r.date }}</td>
+
+            <!-- EDIT BUTTON -->
+            <td>
+                <a href="{% url 'edit' r.id %}" class="edit-btn">Edit</a>
+                </td>
+                 <td>
+                
+                
+                <a href="{% url 'delete' r.id %}" class="edit-btn" style="background:red;color:white;"onclick="return confirm('Are you sure?');">Delete</a>
+</td>
+        
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+
+</div>
+<br></br>
+<br></br>
+<br></br>
+<br></br>   
+<!-- FOOTER -->
+<div class="footer">
+    © 2026 DataSaarthi
+</div>
+
+</body>
+</html>

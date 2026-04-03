@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Record | DataSaarthi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.logo span {
+    color: #00f2fe;
+}
+
+.tagline {
+    font-size: 12px;
+    color: #ddd;
+}
+
+.logout {
+    color: white;
+    border: 1px solid white;
+    padding: 8px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+.logout:hover {
+    background: white;
+    color: #333;
+}
+
+/* HEADER LINE */
+.header-line {
+    position: fixed;
+    top: 80px;
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+}
+
+/* CONTAINER */
+.container {
+    margin-top: 120px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    width: 85%;
+    max-width: 1100px;
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* TITLE */
+.title {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+/* FIELD GROUP */
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+/* LABEL */
+label {
+    color: #ddd;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+/* INPUT */
+input, select {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+/* BUTTON */
+.btn {
+    margin-top: 25px;
+    padding: 14px;
+    border-radius: 50px;
+    border: none;
+    background: #00f2fe;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.btn:hover {
+    background: #4facfe;
+    transform: scale(1.03);
+}
+
+/* FOOTER */
+.footer {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: #ccc;
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px){
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px){
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">
+        Data<span>Saarthi</span>
+        <div class="tagline">Smart Record Management</div>
+    </div>
+    <a href="#" class="logout">Logout</a>
+</div>
+
+<div class="header-line"></div>
+
+<!-- FORM -->
+<div class="container">
+<div class="card">
+
+<div class="title">✏️ Edit Record</div>
+
+<form method="POST">
+{% csrf_token %}
+
+<div class="grid">
+
+<div class="field">
+<label>Custom ID</label>
+<input type="text" name="custom_id" value="{{ record.custom_id }}">
+</div>
+
+<div class="field">
+<label>House No</label>
+<input type="text" name="house_no" value="{{ record.house_no }}">
+</div>
+
+<div class="field">
+<label>Address</label>
+<input type="text" name="address" value="{{ record.address }}">
+</div>
+
+<div class="field">
+<label>Village</label>
+<input type="text" name="village" value="{{ record.village }}">
+</div>
+
+<div class="field">
+<label>Client Name</label>
+<input type="text" name="client_name" value="{{ record.client_name }}">
+</div>
+
+<div class="field">
+<label>Type</label>
+<select name="type" id="type">
+<option value="PVR01" {% if record.type == "PVR01" %}selected{% endif %}>PVR01</option>
+<option value="PVR02" {% if record.type == "PVR02" %}selected{% endif %}>PVR02</option>
+<option value="PVR03" {% if record.type == "PVR03" %}selected{% endif %}>PVR03</option>
+<option value="PVR04" {% if record.type == "PVR04" %}selected{% endif %}>PVR04</option>
+</select>
+</div>
+
+<div class="field" id="subTypeField">
+<label>Sub Type</label>
+<select name="sub_type">
+<option value="">Select</option>
+<option value="Flat" {% if record.sub_type == "Flat" %}selected{% endif %}>Flat</option>
+<option value="House" {% if record.sub_type == "House" %}selected{% endif %}>House</option>
+</select>
+</div>
+
+<div class="field">
+<label>LIC Agent</label>
+<input type="text" name="lic_agent_name" value="{{ record.lic_agent_name }}">
+</div>
+
+<div class="field">
+<label>Estimate Status</label>
+<select name="estimate_status">
+<option value="Paid" {% if record.estimate_status == "Paid" %}selected{% endif %}>Paid</option>
+<option value="Pending" {% if record.estimate_status == "Pending" %}selected{% endif %}>Pending</option>
+</select>
+</div>
+
+<div class="field">
+<label>Mobile</label>
+<input type="text" name="client_mobile" value="{{ record.client_mobile }}">
+</div>
+
+<div class="field">
+<label>File Status</label>
+<select name="file_status">
+<option value="Submitted" {% if record.file_status == "Submitted" %}selected{% endif %}>Submitted</option>
+<option value="Not Submitted" {% if record.file_status == "Not Submitted" %}selected{% endif %}>Not Submitted</option>
+</select>
+</div>
+
+<div class="field">
+<label>Date</label>
+<input type="date" name="date" value="{{ record.date|date:'Y-m-d' }}">
+</div>
+
+</div>
+
+<button class="btn">💾 Update Record</button>
+
+</form>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+© 2026 DataSaarthi | Smart & Secure System
+</div>
+
+<!-- 🔥 JS (PVR03 logic) -->
+<script>
+const typeSelect = document.getElementById("type");
+const subTypeField = document.getElementById("subTypeField");
+
+function toggleSubType(){
+    if(typeSelect.value === "PVR03"){
+        subTypeField.style.display = "block";
+    } else {
+        subTypeField.style.display = "none";
+    }
+}
+
+toggleSubType();
+typeSelect.addEventListener("change", toggleSubType);
+</script>
+
+</body>
+</html>

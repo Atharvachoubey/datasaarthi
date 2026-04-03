@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Register | DataSaarthi</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2, #00f2fe);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 50px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 400px;
+}
+
+h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    margin: 10px 0;
+    width: 100%;
+}
+
+button {
+    padding: 12px 30px;
+    border-radius: 50px;
+    border: none;
+    background: #00f2fe;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button:hover {
+    background: #4facfe;
+}
+
+a {
+    display: block;
+    margin-top: 10px;
+    color: #ddd;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #fff;
+}
+
+.msg {
+    color: white;
+    margin-bottom: 10px;
+}
+/* Footer */
+.footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: #ccc;
+    font-size: 14px;
+}
+/* Navbar */
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Stylish Logo */
+.logo {
+    color: white;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: #00f2fe;
+}
+
+/* Tagline */
+.tagline {
+    font-size: 12px;
+    color: #ddd;
+    margin-top: 2px;
+}
+
+/* Header Line */
+.header-line {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+}
+
+</style>
+
+</head>
+<!-- NAVBAR -->
+<div class="navbar">
+
+    <div class="logo">
+        Data<span>Saarthi</span>
+        <div class="tagline">Smart Record Management</div>
+    </div>
+
+
+</div>
+
+<!-- LINE BELOW HEADER -->
+<div class="header-line"></div>
+
+<body>
+
+<div class="card">
+    <h2>Create Account</h2>
+
+    <!-- 🔥 messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="msg">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="username" placeholder="Username" required>
+
+        <input type="password" name="password1" placeholder="Password" required>
+
+        <input type="password" name="password2" placeholder="Confirm Password" required>
+
+        <button type="submit">Create Account</button>
+    </form>
+
+    <a href="{% url 'login' %}">Already have an account? Login</a>
+</div>
+
+</body>
+</html>
+<div class="footer">
+    © 2026 DataSaarthi | Smart & Secure System
+</div>
