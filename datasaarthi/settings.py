@@ -13,11 +13,16 @@ SECRET_KEY = config('SECRET_KEY', default='unsafe-secret-key')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # ALLOWED HOSTS
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='datasaarthi.onrender.com').split(',')
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default='datasaarthi-13.onrender.com,datasaarthi.onrender.com'
+).split(',')
 
 # CSRF Trusted Origins
-CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS]
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://datasaarthi-13.onrender.com',
+    'https://datasaarthi.onrender.com',
+]
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
